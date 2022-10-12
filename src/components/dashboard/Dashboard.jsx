@@ -46,6 +46,8 @@ export const Dashboard = () => {
               borderRadius: theme.spacing(3),
               padding: theme.spacing(1),
               width: theme.spacing(50),
+              marginRight: theme.spacing(1),
+              marginLeft: theme.spacing(1),
             }}
             onKeyPress={handleSubmit}
           />

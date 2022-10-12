@@ -30,7 +30,7 @@ export const TracksGrid = ({ items, total }) => {
         <Grid item container xs={8} spacing={4}>
           {items.map((item) => {
             return (
-              <Grid item xs={3} key={item.id}>
+              <Grid item xs={12} sm={4} key={item.id}>
                 <Track key={item.id} track={item} />
               </Grid>
             );
