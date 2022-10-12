@@ -9,7 +9,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="search/:searchValue" element={<Dashboard />} />
+        <Route path="search/:searchTerm" element={<Dashboard />} />
       </Routes>
     </>
   );
