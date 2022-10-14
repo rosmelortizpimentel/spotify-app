@@ -1,5 +1,4 @@
 import { Grid, Typography } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import Track from '../Track/Tracks';
 import { theme } from '../../themes';
@@ -20,25 +19,23 @@ export const TracksGrid = ({ items, total }) => {
     );
   }
   return (
-    <ThemeProvider theme={theme}>
-      <Grid
-        container
-        sx={{
-          paddingTop: theme.spacing(5),
-        }}>
-        <Grid item xs={2}></Grid>
-        <Grid item container xs={8} spacing={4}>
-          {items.map((item) => {
-            return (
-              <Grid item xs={12} sm={4} key={item.id}>
-                <Track key={item.id} track={item} />
-              </Grid>
-            );
-          })}
-        </Grid>
-        <Grid item xs={2}></Grid>
+    <Grid
+      container
+      sx={{
+        paddingTop: theme.spacing(5),
+      }}>
+      <Grid item xs={2}></Grid>
+      <Grid item container xs={8} spacing={4}>
+        {items.map((item) => {
+          return (
+            <Grid item xs={12} sm={4} key={item.id}>
+              <Track key={item.id} track={item} />
+            </Grid>
+          );
+        })}
       </Grid>
-    </ThemeProvider>
+      <Grid item xs={2}></Grid>
+    </Grid>
   );
 };
 
