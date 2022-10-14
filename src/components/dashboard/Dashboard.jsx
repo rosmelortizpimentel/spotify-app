@@ -9,10 +9,24 @@ import { AudioPlayer } from '../AudioPlayer/AudioPlayer';
 
 export const Dashboard = () => {
   const navigate = useNavigate();
-
   const { searchTerm } = useParams();
   const [query, setQuery] = useState();
   const [tracks] = useSearchTracks({ query });
+
+  const gridStyles = {
+    height: query ? '100%' : '100vh',
+    width: '100%',
+    marginTop: query ? theme.spacing(20) : 0,
+  };
+
+  const inputStyles = {
+    backgroundColor: 'common.white',
+    borderRadius: theme.spacing(3),
+    padding: theme.spacing(1),
+    width: theme.spacing(50),
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+  };
 
   useEffect(() => {
     setQuery(searchTerm);
@@ -25,16 +39,7 @@ export const Dashboard = () => {
   };
 
   return (
-    <Grid
-      container
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-      sx={{
-        height: query ? '100%' : '100vh',
-        width: '100%',
-        marginTop: query ? theme.spacing(20) : 0,
-      }}>
+    <Grid container direction="row" justifyContent="center" alignItems="center" sx={gridStyles}>
       <AudioPlayer></AudioPlayer>
       <FormControl variant="standard">
         <Input
@@ -45,14 +50,7 @@ export const Dashboard = () => {
           }
           placeholder="Artistas, canciones o podcasts"
           disableUnderline
-          sx={{
-            backgroundColor: 'common.white',
-            borderRadius: theme.spacing(3),
-            padding: theme.spacing(1),
-            width: theme.spacing(50),
-            marginRight: theme.spacing(1),
-            marginLeft: theme.spacing(1),
-          }}
+          sx={inputStyles}
           onKeyPress={handleSubmit}
         />
         <Typography variant="subtitle1" align="center">

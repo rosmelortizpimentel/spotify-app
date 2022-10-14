@@ -7,22 +7,32 @@ import { AudioTrackContext } from '../contexts/AudioTrack/AudioTrackContext';
 import useAudioPlayer from '../../hooks/useAudioPlayer';
 
 export const AudioPlayer = () => {
-  const { audioTrack, audioPlayer, isAudioPlaying, setIsAudioPlaying } =
+  const avatarStyles = {
+    backgroudColor: 'common.white',
+    cursor: 'pointer',
+    boxShadow: shadows[1],
+  };
+  const iconStyles = {
+    color: 'black',
+    fontSize: theme.spacing(4),
+  };
+
+  const { audioTrack, audioPlayer, isAudioPlaying, setIsAudioPlaying, setAudioPlayer } =
     useContext(AudioTrackContext);
 
   const { play, pause, sliderValue, onTimelineChange, currentTime, onPlaying } = useAudioPlayer();
 
   useEffect(() => {
     if (audioTrack) {
-      //   setCurrentTime(0);
-      //   setSeekValue(0);
+      setAudioPlayer(audioTrack);
       setIsAudioPlaying(true);
     }
   }, [audioTrack]);
-  console.log('isAudioPlaying===', isAudioPlaying);
+
   if (!audioTrack) {
     return null;
   }
+
   return (
     <ThemeProvider theme={theme}>
       <Grid
@@ -42,48 +52,22 @@ export const AudioPlayer = () => {
         <Grid item xs={4}>
           <Grid container justifyContent="center" alignItems="center">
             {!isAudioPlaying && (
-              <Avatar
-                sx={{
-                  backgroudColor: 'common.white',
-                  cursor: 'pointer',
-                  boxShadow: shadows[1],
-                }}>
-                <PlayArrow
-                  sx={{
-                    color: 'black',
-                    fontSize: theme.spacing(4),
-                  }}
-                  onClick={play}
-                />
+              <Avatar sx={avatarStyles}>
+                <PlayArrow sx={iconStyles} onClick={play} />
               </Avatar>
             )}
             {isAudioPlaying && (
-              <Avatar
-                sx={{
-                  backgroudColor: 'common.white',
-                  cursor: 'pointer',
-                  boxShadow: shadows[1],
-                }}>
-                <Pause
-                  sx={{
-                    color: 'black',
-                    fontSize: theme.spacing(4),
-                  }}
-                  onClick={pause}
-                />
+              <Avatar sx={avatarStyles}>
+                <Pause sx={iconStyles} onClick={pause} />
               </Avatar>
             )}
           </Grid>
-          <audio
-            src={audioTrack ? audioTrack.preview_url : ''}
-            ref={audioPlayer}
-            onTimeUpdate={onPlaying}
-            autoPlay>
-            Your browser does not suppport the audio element
+          <audio src={audioTrack.preview_url} ref={audioPlayer} onTimeUpdate={onPlaying} autoPlay>
+            Your browser does not suppport the <code>video</code> element
           </audio>
           <Grid container wrap="nowrap">
             <Typography variant="subtitle1" align="center" sx={{ marginRight: theme.spacing(2) }}>
-              {currentTime}
+              {currentTime.toFixed(2)}
             </Typography>
             <Slider
               defaultValue={0}

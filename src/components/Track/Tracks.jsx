@@ -8,42 +8,50 @@ import { AudioTrackContext } from '../contexts/AudioTrack/AudioTrackContext';
 import useAudioPlayer from '../../hooks/useAudioPlayer';
 
 const Track = ({ track }) => {
+  const paperStyles = {
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: 'text.secondary',
+    whiteSpace: 'nowrap',
+    marginBottom: theme.spacing(1),
+    position: 'relative',
+    '&:hover div': {
+      opacity: 1,
+    },
+  };
+
+  const avatarStyles = {
+    backgroundColor: 'success.main',
+    position: 'absolute',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+    cursor: 'pointer',
+    opacity: 0,
+    transition: 'opacity 0.5s',
+    boxShadow: shadows[1],
+  };
+
+  const songTitleStyles = {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  };
+
+  const iconStyles = { color: 'rgb(33, 33, 33)', fontSize: theme.spacing(4) };
+
   const { audioTrack, setAudioTrack, isAudioPlaying } = useContext(AudioTrackContext);
-  console.log(audioTrack);
 
   const showPauseButton = isAudioPlaying && audioTrack.id === track.id;
 
   const { play, pause } = useAudioPlayer();
   const playAudio = () => {
-    console.log('PLAY');
     setAudioTrack(track);
     play();
   };
 
-  // const pauseAudio = () => {
-  //   setAudioTrack(track);
-  //   pause.pause();
-  // };
   return (
-    <Paper
-      sx={{
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: 'text.secondary',
-        whiteSpace: 'nowrap',
-        marginBottom: theme.spacing(1),
-        position: 'relative',
-        '&:hover div': {
-          opacity: 1,
-        },
-      }}>
-      <Typography
-        variant="subtitle1"
-        sx={{
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        }}>
+    <Paper sx={paperStyles}>
+      <Typography variant="subtitle1" sx={songTitleStyles}>
         {track.name}
       </Typography>
       <img
@@ -53,36 +61,13 @@ const Track = ({ track }) => {
         }}
       />
       {!showPauseButton && (
-        <Avatar
-          sx={{
-            backgroundColor: 'success.main',
-            position: 'absolute',
-            bottom: theme.spacing(2),
-            right: theme.spacing(2),
-            cursor: 'pointer',
-            opacity: 0,
-            transition: 'opacity 0.5s',
-            boxShadow: shadows[1],
-          }}>
-          <PlayArrow
-            sx={{ color: 'rgb(33, 33, 33)', fontSize: theme.spacing(4) }}
-            onClick={playAudio}
-          />
+        <Avatar sx={avatarStyles}>
+          <PlayArrow sx={iconStyles} onClick={playAudio} />
         </Avatar>
       )}
       {showPauseButton && (
-        <Avatar
-          sx={{
-            backgroundColor: 'success.main',
-            position: 'absolute',
-            bottom: theme.spacing(2),
-            right: theme.spacing(2),
-            cursor: 'pointer',
-            opacity: 0,
-            transition: 'opacity 0.5s',
-            boxShadow: shadows[1],
-          }}>
-          <Pause sx={{ color: 'rgb(33, 33, 33)', fontSize: theme.spacing(4) }} onClick={pause} />
+        <Avatar sx={avatarStyles}>
+          <Pause sx={iconStyles} onClick={pause} />
         </Avatar>
       )}
     </Paper>

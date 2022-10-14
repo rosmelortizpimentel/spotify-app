@@ -4,7 +4,7 @@ import { AudioTrackContext } from '../components/contexts/AudioTrack/AudioTrackC
 const useAudioPlayer = () => {
   const { audioPlayer, setIsAudioPlaying } = useContext(AudioTrackContext);
   const [currentTime, setCurrentTime] = useState(0);
-  const [seekValue, setSeekValue] = useState(0);
+  const [sliderValue, setSliderValue] = useState(0);
 
   const play = () => {
     audioPlayer?.current?.play();
@@ -17,14 +17,14 @@ const useAudioPlayer = () => {
   };
 
   const onPlaying = () => {
-    setCurrentTime(audioPlayer.current.currentTime);
-    setSeekValue((audioPlayer.current.currentTime / audioPlayer.current.duration) * 100);
+    setCurrentTime(audioPlayer?.current?.currentTime);
+    setSliderValue((audioPlayer?.current?.currentTime / audioPlayer?.current?.duration) * 100);
   };
 
   const onTimelineChange = (e, newValue) => {
-    const newCurrentTime = audioPlayer.current.duration * (newValue / 100);
+    const newCurrentTime = audioPlayer?.current?.duration * (newValue / 100);
     audioPlayer.current.currentTime = newCurrentTime;
-    setSeekValue(newValue);
+    setSliderValue(newValue);
   };
 
   return {
@@ -34,8 +34,8 @@ const useAudioPlayer = () => {
     onTimelineChange,
     currentTime,
     setCurrentTime,
-    seekValue,
-    setSeekValue,
+    sliderValue,
+    setSliderValue,
   };
 };
 
